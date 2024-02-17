@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name="unique_identity")
+@Table(name="identity")
 public class Identity {
 
     @Id
