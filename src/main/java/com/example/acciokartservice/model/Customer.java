@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Date;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -17,7 +20,8 @@ import lombok.experimental.FieldDefaults;
 public class Customer {
 
     @Id
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int customerId;
 
     @Column(name="name")
     String name;
@@ -26,9 +30,18 @@ public class Customer {
     @Email
     String emailId;
 
+    int age;
+
     @Enumerated(EnumType.STRING)
     Gender gender;
 
     @Size(min = 2, max = 20)
     String city;
+
+    @CreationTimestamp
+    Date created;
+
+    @OneToOne
+    @JoinColumn(name="identity_id")
+    Identity identity;
 }
