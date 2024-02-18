@@ -42,4 +42,12 @@ public class CustomerService {
     public List<Customer> getAllByGenderAndAge(Gender gender, int age) {
         return customerRepository.findByGenderAndAge(gender, age);
     }
+
+    public int getCountOfAgeGreaterThan(int age) {
+        return customerRepository.getCountOfAgeGreaterThan(age);
+    }
+
+    public int getCountOfGender(String gender) {
+        return customerRepository.getCountOfGender(gender);
+    }
 }

@@ -47,4 +47,14 @@ public class CustomerController {
                                                @RequestParam("age") int age){
         return customerService.getAllByGenderAndAge(gender,age);
     }
+
+    @GetMapping("/get-count")
+    public int getCountOfAgeGreaterThan(@RequestParam("age") int age){
+        return customerService.getCountOfAgeGreaterThan(age);
+    }
+
+    @GetMapping("/get-count-gender")
+    public int getCountOfGender(@RequestParam("gender") String gender){
+        return customerService.getCountOfGender(gender);
+    }
 }

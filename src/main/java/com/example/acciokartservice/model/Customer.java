@@ -41,7 +41,7 @@ public class Customer {
     @CreationTimestamp
     Date created;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="identity_id")
     Identity identity;
 }

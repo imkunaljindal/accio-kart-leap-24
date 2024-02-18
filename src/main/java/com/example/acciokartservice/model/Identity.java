@@ -15,7 +15,8 @@ import lombok.experimental.FieldDefaults;
 public class Identity {
 
     @Id
-    int uniqueId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
     @Enumerated(EnumType.STRING)
     IdentityType identityType;
