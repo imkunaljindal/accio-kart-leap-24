@@ -17,6 +17,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Table(name="customer")
+@Builder
 public class Customer {
 
     @Id
@@ -40,6 +41,7 @@ public class Customer {
 
     @CreationTimestamp
     Date created;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="identity_id")

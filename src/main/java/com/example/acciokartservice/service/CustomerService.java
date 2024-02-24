@@ -1,12 +1,16 @@
 package com.example.acciokartservice.service;
 
 import com.example.acciokartservice.Enum.Gender;
+import com.example.acciokartservice.dto.request.CustomerRequest;
+import com.example.acciokartservice.dto.response.CustomerResponse;
 import com.example.acciokartservice.exception.CustomerNotFoundException;
 import com.example.acciokartservice.model.Customer;
 import com.example.acciokartservice.repository.CustomerRepository;
+import com.example.acciokartservice.service.transfomer.CustomerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,16 +19,18 @@ public class CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
-    public Customer addCustomer(Customer customer) {
-        return customerRepository.save(customer);  // returns saved customer
+    public CustomerResponse addCustomer(CustomerRequest customerRequest) {
+        Customer customer = CustomerTransformer.customerRequestToCustomer(customerRequest);
+        Customer savedCustomer = customerRepository.save(customer);
+        return CustomerTransformer.customerToCustomerResponse(savedCustomer);
     }
 
-    public Customer getCustomer(int customerId) {
+    public CustomerResponse getCustomer(int customerId) {
         Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
         if(optionalCustomer.isEmpty()){
             throw new CustomerNotFoundException("Invalid customer id");
         }
-        return optionalCustomer.get();
+        return CustomerTransformer.customerToCustomerResponse(optionalCustomer.get());
     }
 
     public List<Customer> getAllCustomers() {
@@ -39,8 +45,13 @@ public class CustomerService {
         return optionalCustomer.get();
     }
 
-    public List<Customer> getAllByGenderAndAge(Gender gender, int age) {
-        return customerRepository.findByGenderAndAge(gender, age);
+    public List<CustomerResponse> getAllByGenderAndAge(Gender gender, int age) {
+        List<Customer> customers = customerRepository.findByGenderAndAge(gender, age);
+        List<CustomerResponse> customerResponses = new ArrayList<>();
+        for(Customer customer: customers){
+            customerResponses.add(CustomerTransformer.customerToCustomerResponse(customer));
+        }
+        return customerResponses;
     }
 
     public int getCountOfAgeGreaterThan(int age) {

@@ -1,6 +1,8 @@
 package com.example.acciokartservice.controller;
 
 import com.example.acciokartservice.Enum.Gender;
+import com.example.acciokartservice.dto.request.CustomerRequest;
+import com.example.acciokartservice.dto.response.CustomerResponse;
 import com.example.acciokartservice.model.Customer;
 import com.example.acciokartservice.service.CustomerService;
 
@@ -21,12 +23,12 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    public Customer addCustomer(@RequestBody Customer customer){
-        return customerService.addCustomer(customer);
+    public CustomerResponse addCustomer(@RequestBody CustomerRequest customerRequest){
+        return customerService.addCustomer(customerRequest);
     }
 
     @GetMapping("/get/id/{id}")
-    public Customer getCustomer(@PathVariable("id") int customerId){
+    public CustomerResponse getCustomer(@PathVariable("id") int customerId){
         return customerService.getCustomer(customerId);
     }
 
@@ -43,7 +45,7 @@ public class CustomerController {
     // give me all the customers of a particular gender and a particular age
     // ex - all males of age 25
     @GetMapping("/get-by-gender-age")
-    public List<Customer> getAllByGenderAndAge(@RequestParam("gender") Gender gender,
+    public List<CustomerResponse> getAllByGenderAndAge(@RequestParam("gender") Gender gender,
                                                @RequestParam("age") int age){
         return customerService.getAllByGenderAndAge(gender,age);
     }
