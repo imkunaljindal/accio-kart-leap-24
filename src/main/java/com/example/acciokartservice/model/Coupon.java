@@ -1,6 +1,5 @@
 package com.example.acciokartservice.model;
 
-import com.example.acciokartservice.Enum.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,24 +13,20 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
-@Table(name="seller")
-public class Seller {
+@Table(name="coupon")
+public class Coupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String uniqueSellerNumber;
+    String couponCode;
 
-    String name;
+    double percentageDiscount;
 
-    @Column(unique = true)
-    String mobileNumber;
-
-    int age;
-
-    @OneToMany(mappedBy = "lowes",cascade = CascadeType.ALL)
-    List<Product> products = new ArrayList<>();
-
+    @ManyToMany
+    @JoinTable(name="customers_coupons",
+    joinColumns = {@JoinColumn(name="coupon_id")},
+    inverseJoinColumns = {@JoinColumn(name="customer_id")})
+    List<Customer> customers = new ArrayList<>();
 }
