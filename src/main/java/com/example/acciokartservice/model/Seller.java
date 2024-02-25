@@ -1,6 +1,7 @@
 package com.example.acciokartservice.model;
 
 import com.example.acciokartservice.Enum.Gender;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -31,7 +32,7 @@ public class Seller {
 
     int age;
 
-    @OneToMany(mappedBy = "lowes",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller",cascade = CascadeType.ALL)
     List<Product> products = new ArrayList<>();
 
 }

@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name="coupon")
+@Builder
 public class Coupon {
 
     @Id

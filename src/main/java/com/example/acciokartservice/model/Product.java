@@ -1,6 +1,8 @@
 package com.example.acciokartservice.model;
 
 import com.example.acciokartservice.Enum.ProductStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Table(name="product")
+@Builder
 public class Product {
 
     @Id
@@ -31,6 +34,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name="seller_id")
-    Seller lowes;
+    @JsonIgnore
+    Seller seller;
 
 }
