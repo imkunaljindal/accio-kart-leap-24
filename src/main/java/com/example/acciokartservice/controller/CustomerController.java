@@ -62,4 +62,10 @@ public class CustomerController {
     public int getCountOfGender(@RequestParam("gender") String gender){
         return customerService.getCountOfGender(gender);
     }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteCustomer(@RequestParam("email") String email){
+        customerService.deleteCustomer(email);
+        return new ResponseEntity<>("Customer deleted",HttpStatus.ACCEPTED);
+    }
 }
