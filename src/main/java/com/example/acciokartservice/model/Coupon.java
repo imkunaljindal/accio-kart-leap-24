@@ -21,6 +21,7 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+    @Column(unique = true)
     String couponCode;
 
     double percentageDiscount;

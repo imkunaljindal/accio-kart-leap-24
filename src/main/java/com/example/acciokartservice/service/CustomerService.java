@@ -7,6 +7,9 @@ import com.example.acciokartservice.exception.CustomerNotFoundException;
 import com.example.acciokartservice.model.Customer;
 import com.example.acciokartservice.repository.CustomerRepository;
 import com.example.acciokartservice.service.transfomer.CustomerTransformer;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class CustomerService {
+
+  //  Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     @Autowired
     CustomerRepository customerRepository;
@@ -30,6 +36,12 @@ public class CustomerService {
         if(optionalCustomer.isEmpty()){
             throw new CustomerNotFoundException("Invalid customer id");
         }
+
+        log.info("This is an INFO log");
+        log.trace("This is a TRACE log");
+        log.debug("This is a DEBUG log");
+        log.error("This is a error log");
+        log.warn("This is a WARN log");
         return CustomerTransformer.customerToCustomerResponse(optionalCustomer.get());
     }
 
