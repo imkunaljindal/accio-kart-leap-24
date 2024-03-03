@@ -14,6 +14,7 @@ import com.example.acciokartservice.repository.CustomerRepository;
 import com.example.acciokartservice.repository.ProductRepo;
 import com.example.acciokartservice.service.transfomer.OrderTransformer;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final CustomerRepository customerRepository;
@@ -76,7 +78,8 @@ public class OrderService {
         Optional<Coupon> optionalCoupon = couponRepo.getRandomCoupon(customer);
         if(optionalCoupon.isPresent()){
             Coupon coupon = optionalCoupon.get();
-            totalValue = (totalValue*coupon.getPercentageDiscount())/100.0;
+            log.info("coupon applied"+coupon.getCouponCode());
+            totalValue -= (totalValue*coupon.getPercentageDiscount())/100.0;
         }
         return totalValue;
     }

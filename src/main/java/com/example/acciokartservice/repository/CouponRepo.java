@@ -13,7 +13,6 @@ public interface CouponRepo extends JpaRepository<Coupon,Integer> {
 
     Optional<Coupon> findByCouponCode(String code);
 
-    @Query("select c from Coupon c where :customer IN c.customers " +
-            "order by random() limit 1")
+    @Query("select c from Coupon c where :customer MEMBER OF c.customers order by rand() limit 1")
     Optional<Coupon> getRandomCoupon(@Param("customer") Customer customer);
 }
