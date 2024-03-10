@@ -17,6 +17,7 @@ import org.springframework.web.ErrorResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -60,10 +61,12 @@ public class CustomerService {
 
     public List<CustomerResponse> getAllByGenderAndAge(Gender gender, int age) {
         List<Customer> customers = customerRepository.findByGenderAndAge(gender, age);
-        List<CustomerResponse> customerResponses = new ArrayList<>();
-        for(Customer customer: customers){
-            customerResponses.add(CustomerTransformer.customerToCustomerResponse(customer));
-        }
+        List<CustomerResponse> customerResponses = customers.stream()
+                .map(customer -> CustomerTransformer.customerToCustomerResponse(customer))
+                .collect(Collectors.toList());
+//        for(Customer customer: customers){
+//            customerResponses.add(CustomerTransformer.customerToCustomerResponse(customer));
+//        }
         return customerResponses;
     }
 
